@@ -124,7 +124,9 @@ def identical_siblings(values, n):
     for unit in unitlist:
         boxes_with_n = boxes_with_n_values(values, n, unit)
         n_values = [values[box] for box in boxes_with_n]
+        # Check existence of n siblings with n possible values
         for v in [v for v in set(n_values) if n_values.count(v) == n]:
+            # extract from non_siblings the siblings digits when appropriate
             non_siblings = [box for box in unit if v != values[box]]
             for digit in v:
                 for box in [b for b in non_siblings if digit in values[b]]:
@@ -236,9 +238,13 @@ def reduce_puzzle(values):
     stalled = False
     while not stalled:
         solved_values_before = len(boxes_with_n_values(values, 1))
-        for n_val in range(4):
+        # the case n_val=1 accounts for elimination strategy
+        # the case n_val=2 accounts for naked_twins strategy
+        # the identical siblings strategy is a generalization
+        for n_val in range(1, 5):
             values = identical_siblings(values, n_val)
         values = only_choice(values)
+        # Check if we are stuck after applying strategies
         solved_values_after = len(boxes_with_n_values(values, 1))
         stalled = solved_values_before == solved_values_after
         if len(boxes_with_n_values(values, 0)):
