@@ -3,11 +3,11 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: The naked twins can be seen as an extension of the trivial elimination technique. By definition of the constraint that no two boxes can have the same value in a unit, we know that if n boxes out of m boxes in a unit contain exactly the same n possible values, then branching the possibilities would never allow those values to be contained in the other (m - n) boxes. The naked twins strategy would be the case when n=2 while the elimination strategy is the case n=1. This could make sense only up to n=(m - 2), since n=(m - 1) would be a corner case of the only choice strategy.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: We represent the box constraints by taking into account the values of their peers. Where the peers are defined according to some arbitrary group definition like columns, runs or squares, that we call units. So we simply add the diagonal as another unit to automatically use it when iterating on the constraints "units" when executing the different strategies.
 
 ### Install
 
