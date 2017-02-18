@@ -104,8 +104,8 @@ def display(values):
     print
 
 
-def identical_siblings(values, n):
-    """Eliminate values using the identical_siblings strategy.
+def identical_peers(values, n):
+    """Eliminate values using the identical_peers strategy.
     When n boxes in a unit contain only the same n possible digits.
     Then we eliminate those n digits from all other boxes in that unit.
 
@@ -150,7 +150,7 @@ def naked_twins(values):
     values: dict,
         Resulting sudoku in dictionary form.
     """
-    values = identical_siblings(values, 2)
+    values = identical_peers(values, 2)
     return values
 
 
@@ -169,7 +169,7 @@ def eliminate(values):
     values: dict,
         Resulting sudoku in dictionary form.
     """
-    values = identical_siblings(values, 1)
+    values = identical_peers(values, 1)
     return values
 
 
@@ -240,9 +240,9 @@ def reduce_puzzle(values):
         solved_values_before = len(boxes_with_n_values(values, 1))
         # the case n_val=1 accounts for elimination strategy
         # the case n_val=2 accounts for naked_twins strategy
-        # the identical siblings strategy is a generalization
+        # the identical peers strategy is a generalization
         for n_val in range(1, 5):
-            values = identical_siblings(values, n_val)
+            values = identical_peers(values, n_val)
         values = only_choice(values)
         # Check if we are stuck after applying strategies
         solved_values_after = len(boxes_with_n_values(values, 1))
